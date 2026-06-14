@@ -14,9 +14,27 @@ final class CharacterSharedPreferencesService
   static const String _storageKey = 'characters';
 
   @override
-  Future<CharacterResult> deleteCharacter(String id) {
-    // TODO: implement deleteCharacter
-    throw UnimplementedError();
+  Future<CharacterResult> deleteCharacter(String id) async {
+    try {
+      final currentResult = await getAllCharacters();
+
+      return await currentResult.fold(
+        onSuccess: (characters) async {
+          final character = characters.firstWhere((c) => c.id == id);
+
+          final updatedList = characters.where((c) => c.id != id).toList();
+
+          await _saveCharacters(updatedList);
+
+          return Success(character);
+        },
+        onFailure: (failure) async {
+          return Error(failure);
+        },
+      );
+    } catch (e) {
+      return Error(ApiLocalFailure('Erro ao deletar personagem: $e'));
+    }
   }
 
   @override
@@ -44,9 +62,23 @@ final class CharacterSharedPreferencesService
   }
 
   @override
-  Future<CharacterResult> getCharacterById(String id) {
-    // TODO: implement getCharacterById
-    throw UnimplementedError();
+  Future<CharacterResult> getCharacterById(String id) async {
+    try {
+      final result = await getAllCharacters();
+
+      return result.fold(
+        onSuccess: (characters) {
+          final character = characters.firstWhere((c) => c.id == id);
+
+          return Success(character);
+        },
+        onFailure: (failure) {
+          return Error(failure);
+        },
+      );
+    } catch (e) {
+      return Error(ApiLocalFailure('Erro ao buscar personagem: $e'));
+    }
   }
 
   @override
@@ -69,7 +101,6 @@ final class CharacterSharedPreferencesService
           return Error(ApiLocalFailure());
         },
       );
-      
     } catch (e) {
       return Error(
         ApiLocalFailure('Shared Preferences - Erro ao salvar personagem: $e'),
@@ -87,6 +118,34 @@ final class CharacterSharedPreferencesService
       await prefs.setString(_storageKey, jsonString);
     } catch (e) {
       throw ApiLocalFailure('Erro ao salvar personagens: $e');
+    }
+  }
+
+  @override
+  Future<CharacterResult> editCharacter(Character character) async {
+    try {
+      final result = await getAllCharacters();
+
+      return await result.fold(
+        onSuccess: (characters) async {
+          final index = characters.indexWhere((c) => c.id == character.id);
+
+          if (index == -1) {
+            return Error(ApiLocalFailure('Personagem não encontrado'));
+          }
+
+          characters[index] = character;
+
+          await _saveCharacters(characters);
+
+          return Success(character);
+        },
+        onFailure: (failure) async {
+          return Error(failure);
+        },
+      );
+    } catch (e) {
+      return Error(ApiLocalFailure('Erro ao editar personagem: $e'));
     }
   }
 }

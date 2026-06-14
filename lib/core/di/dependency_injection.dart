@@ -47,9 +47,10 @@ void setupDependencyInjection() {
   injector.addSingleton<IGetCharacterByIdUseCase>(GetCharacterByIdUseCaseImpl.new);
   injector.addSingleton<ISaveCharacterUseCase>(SaveCharacterUseCaseImpl.new);
   injector.addSingleton<IDeleteCharacterUseCase>(DeleteCharacterUseCaseImpl.new);
+  injector.addSingleton<IEditCharacterUseCase>(EditCharacterUseCaseImpl.new);
   
 
-  // viewmodes
+  // viewmodels
   // Account viewmodes
   injector.addSingleton<AccountViewModel>(AccountViewModel.new);
   // Character List viewmodel

@@ -30,4 +30,9 @@ final class CharacterRepositoryImpl implements ICharacterRepository {
   Future<CharacterResult> saveCharacter(Character character) {
     return _localStorage.saveCharacter(character);
   }
+
+  @override
+  Future<CharacterResult> editCharacter(Character character) {
+    return _localStorage.editCharacter(character);
+  }
 }

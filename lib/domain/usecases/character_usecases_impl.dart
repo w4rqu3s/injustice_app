@@ -26,7 +26,7 @@ final class GetAllCharactersUseCaseImpl implements IGetAllCharactersUseCase {
 
   @override
   Future<ListCharacterResult> call(NoParams params) async {
-     await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     return _repository.getAllCharacters();
   }
 }
@@ -55,5 +55,17 @@ final class DeleteCharacterUseCaseImpl implements IDeleteCharacterUseCase {
   @override
   Future<CharacterResult> call(CharacterIdParams params) {
     return _repository.deleteCharacter(params.id);
+  }
+}
+
+final class EditCharacterUseCaseImpl implements IEditCharacterUseCase {
+  final ICharacterRepository _repository;
+
+  EditCharacterUseCaseImpl({required ICharacterRepository repository})
+    : _repository = repository;
+
+  @override
+  Future<CharacterResult> call(CharacterParams params) {
+    return _repository.editCharacter(params.character);
   }
 }

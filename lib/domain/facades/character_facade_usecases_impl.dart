@@ -10,16 +10,19 @@ final class CharacterFacadeUseCasesImpl implements ICharacterFacadeUseCases {
   final IGetCharacterByIdUseCase _getCharacterByIdUseCase;
   final ISaveCharacterUseCase _saveCharacterUseCase;
   final IDeleteCharacterUseCase _deleteCharacterUseCase;
+  final IEditCharacterUseCase _editCharacterUseCase;
 
   CharacterFacadeUseCasesImpl({
     required IGetAllCharactersUseCase getAllCharactersUseCase,
     required IGetCharacterByIdUseCase getCharacterByIdUseCase,
     required ISaveCharacterUseCase saveCharacterUseCase,
     required IDeleteCharacterUseCase deleteCharacterUseCase,
+    required IEditCharacterUseCase editCharacterUseCase,
   }) : _getAllCharactersUseCase = getAllCharactersUseCase,
        _getCharacterByIdUseCase = getCharacterByIdUseCase,
        _saveCharacterUseCase = saveCharacterUseCase,
-       _deleteCharacterUseCase = deleteCharacterUseCase;
+       _deleteCharacterUseCase = deleteCharacterUseCase,
+       _editCharacterUseCase = editCharacterUseCase;
 
   @override
   Future<ListCharacterResult> getAllCharacters(NoParams params) {
@@ -39,5 +42,10 @@ final class CharacterFacadeUseCasesImpl implements ICharacterFacadeUseCases {
   @override
   Future<CharacterResult> deleteCharacter(CharacterIdParams params) {
     return _deleteCharacterUseCase(params);
+  }
+  
+  @override
+  Future<CharacterResult> editCharacter(CharacterParams params) {
+    return _editCharacterUseCase(params);
   }
 }
