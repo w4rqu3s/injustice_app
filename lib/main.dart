@@ -6,9 +6,17 @@ import 'core/routes/app_routes.dart';
 import 'core/theme/app_theme.dart' as AppTheme;
 import 'core/theme/theme_controller.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   setupDependencyInjection();
+
   final themeController = injector.get<ThemeController>();
 
   runApp(

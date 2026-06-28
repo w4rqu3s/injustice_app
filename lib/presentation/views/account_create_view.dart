@@ -17,6 +17,8 @@ import '../widgets/date_wheel_picker.dart';
 import '../widgets/input_text_field.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
+import 'package:uuid/uuid.dart';
+
 /// Página de cadastro de conta
 class AccountCreateView extends StatefulWidget {
   const AccountCreateView({super.key});
@@ -46,6 +48,7 @@ class _AccountCreateViewState extends State<AccountCreateView> {
   double _gold = 0;
   int _gems = 0;
   int _energy = 1;
+  String id = const Uuid().v4();
 
   @override
   void initState() {
@@ -126,6 +129,7 @@ class _AccountCreateViewState extends State<AccountCreateView> {
   }
 
   void _preencherCampos(Account account) {
+    id = account.id;
     _formFields.email.controller.text = account.email;
     _formFields.name.controller.text = account.name;
     _formFields.displayName.controller.text = account.displayName;
@@ -197,6 +201,7 @@ class _AccountCreateViewState extends State<AccountCreateView> {
     if (!_validateForm()) return;
 
     Account newAccount = Account(
+      id: id,
       email: _formFields.email.controller.text.trim(),
       name: _formFields.name.controller.text.trim(),
       displayName: _formFields.displayName.controller.text.trim(),

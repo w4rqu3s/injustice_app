@@ -12,6 +12,7 @@ abstract class FakeFactory {
     final now = DateTime.now();
 
     return Account(
+      id: _faker.datatype.uuid(),
       name: _faker.name.fullName(),
       email: _faker.internet.email(),
       displayName: _faker.name.firstName(),
