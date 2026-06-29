@@ -49,3 +49,9 @@ class InvalidPhone extends Failure {
   InvalidPhone([String? msg])
     : super(msg ?? AppMessages.error.invalidPhoneError);
 }
+
+
+class InvalidInputFailure extends Failure {
+  InvalidInputFailure([String? msg])
+      : super('${AppMessages.error.invalidInput}: ${msg ?? ''}');
+}
