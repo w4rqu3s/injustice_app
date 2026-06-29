@@ -72,7 +72,7 @@ class CharactersBody extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (_) =>
-                                CharacterFormView(character: character),
+                                CharacterFormView(account: account, character: character),
                           ),
                         );
 

@@ -38,14 +38,19 @@ final class DeleteCharacterCommand
 }
 
 final class GetAllCharactersCommand
-    extends ParameterizedCommand<List<Character>, Failure, NoParams> {
+    extends ParameterizedCommand<List<Character>, Failure, CharacterAccountParams> {
   final ICharacterFacadeUseCases _characterFacadeUseCases;
 
   GetAllCharactersCommand(this._characterFacadeUseCases);
 
   @override
   Future<ListCharacterResult> execute() async {
-    return await _characterFacadeUseCases.getAllCharacters(());
+
+    if (parameter == null || parameter!.accountId.isEmpty) {
+      return Error(InputFailure('Conta não identificada para resgatar personagens.'));
+    }
+
+    return await _characterFacadeUseCases.getAllCharacters((parameter!));
   }
 }
 

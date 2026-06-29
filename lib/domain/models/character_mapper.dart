@@ -4,6 +4,7 @@ class CharacterMapper {
   static Map<String, dynamic> toMap(Character character) {
     return {
       'id': character.id,
+      'accountId': character.accountId,
       'name': character.name,
       'characterClass': character.characterClass.name,
       'rarity': character.rarity.name,
@@ -21,6 +22,7 @@ class CharacterMapper {
   static Character fromMap(Map<String, dynamic> map) {
     return Character(
       id: map['id'] as String,
+      accountId: map['accountId'] as String,
       name: map['name'] as String,
       characterClass:
           CharacterClass.values.byName(map['characterClass'] as String),

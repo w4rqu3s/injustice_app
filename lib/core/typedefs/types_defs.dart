@@ -20,6 +20,7 @@ typedef AccountNameParams = ({String accountName});
 /// tipos usados para Personagem
 typedef CharacterIdParams = ({String id});
 typedef CharacterParams = ({Character character});
+typedef CharacterAccountParams = ({String accountId});
 
 /// typedefs para ser usados em componentes de UI
 typedef FormFieldControl = ({

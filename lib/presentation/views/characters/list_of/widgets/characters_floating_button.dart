@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:injustice_app/domain/models/account_entity.dart';
 import 'package:injustice_app/domain/models/character_entity.dart';
 import 'package:injustice_app/presentation/views/characters/character_form_view.dart';
 import '../../../../controllers/characters_view_model.dart';
@@ -6,8 +7,9 @@ import 'package:signals_flutter/signals_flutter.dart';
 
 class CharactersFab extends StatelessWidget {
   final CharactersViewModel viewModel;
+  final Account account;
 
-  const CharactersFab({super.key, required this.viewModel});
+  const CharactersFab({super.key, required this.account, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class CharactersFab extends StatelessWidget {
             : () async {
                 final character = await Navigator.push<Character>(
                   context,
-                  MaterialPageRoute(builder: (_) => const CharacterFormView()),
+                  MaterialPageRoute(builder: (_) => CharacterFormView(account: account)),
                 );
 
                 if (character == null) return;

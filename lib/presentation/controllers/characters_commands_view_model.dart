@@ -146,9 +146,9 @@ class CharactersCommandsViewModel {
   //   que disparam os commands
   // ========================================================
   /// buscca personagens e atualiza o estado
-  Future<void> fetchCharacters() async {
+  Future<void> fetchCharacters(String accountId) async {
     state.clearMessage(); // Limpa mensagens anteriores
-    await _getAccountCommand.executeWith(());
+    await _getAccountCommand.executeWith((accountId: accountId));
   }
 
   /// adiciona personagem e atualiza o estado

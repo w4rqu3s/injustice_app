@@ -50,7 +50,7 @@ abstract class FakeFactory {
       createdAt: now.subtract(
         Duration(days: _faker.datatype.number(min: 1, max: 180)),
       ),
-      updatedAt: now,
+      updatedAt: now, accountId: '1',
     );
   }
 }

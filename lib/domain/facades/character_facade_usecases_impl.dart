@@ -25,7 +25,7 @@ final class CharacterFacadeUseCasesImpl implements ICharacterFacadeUseCases {
        _editCharacterUseCase = editCharacterUseCase;
 
   @override
-  Future<ListCharacterResult> getAllCharacters(NoParams params) {
+  Future<ListCharacterResult> getAllCharacters(CharacterAccountParams params) {
     return _getAllCharactersUseCase(params);
   }
 

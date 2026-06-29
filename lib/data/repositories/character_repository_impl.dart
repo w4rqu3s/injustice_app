@@ -22,8 +22,8 @@ final class CharacterRepositoryImpl implements ICharacterRepository {
   }
 
   @override
-  Future<ListCharacterResult> getAllCharacters() {
-    return _remoteStorage.getAllCharacters();
+  Future<ListCharacterResult> getAllCharacters(String accountId) {
+    return _remoteStorage.getAllCharacters(accountId);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:injustice_app/domain/models/account_entity.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -9,9 +10,10 @@ import 'package:injustice_app/presentation/widgets/numeric_spinner.dart';
 import 'package:injustice_app/presentation/widgets/star_rating.dart';
 
 class CharacterFormView extends StatefulWidget {
+  final Account account;
   final Character? character;
 
-  const CharacterFormView({super.key, this.character});
+  const CharacterFormView({super.key, required this.account, this.character});
 
   bool get isEditing => character != null;
 
@@ -21,6 +23,8 @@ class CharacterFormView extends StatefulWidget {
 
 class _CharacterFormViewState extends State<CharacterFormView> {
   final _formKey = GlobalKey<FormState>();
+
+  Account get account => widget.account;
 
   late final TextEditingController _nameController;
 
@@ -85,6 +89,7 @@ class _CharacterFormViewState extends State<CharacterFormView> {
         ) ??
         Character(
           id: const Uuid().v4(),
+          accountId: account.id,
           name: _nameController.text.trim(),
           characterClass: _characterClass,
           rarity: _rarity,

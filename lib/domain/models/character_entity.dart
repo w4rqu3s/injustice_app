@@ -59,6 +59,7 @@ enum CharacterAlignment {
 
 class Character extends Equatable {
   final String id;
+  final String accountId;
   final String name;
   final CharacterClass characterClass;
   final CharacterRarity rarity;
@@ -73,6 +74,7 @@ class Character extends Equatable {
 
   Character({
     required this.id,
+    required this.accountId,
     required this.name,
     required this.characterClass,
     required this.rarity,
@@ -108,6 +110,7 @@ class Character extends Equatable {
 
   Character copyWith({
     String? id,
+    String? accountId,
     String? name,
     CharacterClass? characterClass,
     CharacterRarity? rarity,
@@ -122,6 +125,7 @@ class Character extends Equatable {
   }) {
     return Character(
       id: id ?? this.id,
+      accountId: accountId ?? this.accountId,
       name: name ?? this.name,
       characterClass: characterClass ?? this.characterClass,
       rarity: rarity ?? this.rarity,
@@ -139,6 +143,7 @@ class Character extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        accountId,
         name,
         characterClass,
         rarity,
@@ -156,6 +161,7 @@ class Character extends Equatable {
   String toString() {
     return 'Character('
         'id: $id, '
+        'accountId: $accountId, '
         'name: $name, '
         'class: ${characterClass.name}, '
         'rarity: ${rarity.name}, '

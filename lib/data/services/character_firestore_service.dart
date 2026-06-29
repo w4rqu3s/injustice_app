@@ -18,10 +18,11 @@ final class CharacterFirestoreService implements ICharacterRemoteStorage {
       _firestore.collection(_collectionKey);
 
   @override
-  Future<ListCharacterResult> getAllCharacters() async {
+  Future<ListCharacterResult> getAllCharacters(String accountId) async {
     try {
       // Busca todos os documentos da coleção
-      final querySnapshot = await _collection.get();
+      final querySnapshot = await _collection.
+        where('accountId', isEqualTo: accountId).get();
 
       if (querySnapshot.docs.isEmpty) {
         return Error(EmptyResultFailure());

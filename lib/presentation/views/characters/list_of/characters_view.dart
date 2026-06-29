@@ -27,7 +27,7 @@ class _CharactersViewState extends State<CharactersView> {
     super.initState();
     _viewModel = injector.get<CharactersViewModel>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _viewModel.commands.fetchCharacters();
+      _viewModel.commands.fetchCharacters(account.id);
     });
   }
 
@@ -54,7 +54,7 @@ class _CharactersViewState extends State<CharactersView> {
 
       drawer: AppDrawer(),
       body: CharactersBody(account: account, viewModel: _viewModel),
-      floatingActionButton: CharactersFab(viewModel: _viewModel),
+      floatingActionButton: CharactersFab(account: account, viewModel: _viewModel),
     );
   }
 }
