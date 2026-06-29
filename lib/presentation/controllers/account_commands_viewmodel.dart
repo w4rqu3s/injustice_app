@@ -6,24 +6,24 @@ import 'account_state_viewmodel.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
 class AccountCommandsViewmodel {
-  final AccountStateViewModel state;
-  final GetAccountCommand _getAccountCommand;
+  final AccountsStateViewModel state;
+  final GetAllAccountsCommand _getAllAccountsCommand;
   final SaveAccountCommand _saveAccountCommand;
   final UpdateAccountCommand _updateAccountCommand;
   final DeleteAccountCommand _deleteAccountCommand;
 
   AccountCommandsViewmodel({
     required this.state,
-    required GetAccountCommand getAccountCommand,
+    required GetAllAccountsCommand getAllAccountsCommand,
     required SaveAccountCommand saveAccountCommand,
     required UpdateAccountCommand updateAccountCommand,
     required DeleteAccountCommand deleteAccountCommand,
-  }) : _getAccountCommand = getAccountCommand,
+  }) : _getAllAccountsCommand = getAllAccountsCommand,
        _saveAccountCommand = saveAccountCommand,
        _updateAccountCommand = updateAccountCommand,
        _deleteAccountCommand = deleteAccountCommand {
     // Observers para cada comando
-    _observeGetAccount();
+    _observeGetAllAccounts();
     _observeDeleteAccount();
     _observeSaveAccount();
     _observeUpdateAccount();
@@ -32,7 +32,7 @@ class AccountCommandsViewmodel {
   // ========================================================
   //   GETTERS PARA WIDGETS USAREM DIRETAMENTE OS COMANDOS
   // ========================================================
-  GetAccountCommand get getAccountCommand => _getAccountCommand;
+  GetAllAccountsCommand get getAllAccountsCommand => _getAllAccountsCommand;
   SaveAccountCommand get saveAccountCommand => _saveAccountCommand;
   UpdateAccountCommand get updateAccountCommand => _updateAccountCommand;
   DeleteAccountCommand get deleteAccountCommand => _deleteAccountCommand;
@@ -73,83 +73,94 @@ class AccountCommandsViewmodel {
   //   OBSERVERS ESPECÍFICOS
   // ========================================================
 
-  // Recuperar Account
-  void _observeGetAccount() {
-    _observeCommand<Account>(
-      _getAccountCommand,
-      onSuccess: (account) {
-        state.setAccount(account);
+  /// Buscar todos os personagens
+  void _observeGetAllAccounts() {
+    _observeCommand<List<Account>>(
+      _getAllAccountsCommand,
+      onSuccess: (accounts) {
+        state.clearMessage(); // Limpa mensagens anteriores
+        state.state.value = accounts;
       },
-      onFailure: (err) {
-        state.setMessage(err.msg);
-      },
+      onFailure: (err) =>
+          state.setMessage(err.msg), // registra o erro no estado
     );
   }
 
-  // deletar Account
-  void _observeDeleteAccount() {
-    _observeCommand<void>(
-      _deleteAccountCommand,
-      onSuccess: (_) {
-        state.successEvent.value = AccountSuccessEvent.deleted;
-        state.setAccount(null); // Limpa a conta do estado
-        
-      },
-      onFailure: (err) {
-        state.setMessage(err.msg);
-      },
-    );
-  }
- // salvar Account
+  /// Criar um novo personagem
   void _observeSaveAccount() {
-    _observeCommand<void>(
+    _observeCommand<Account>(
       _saveAccountCommand,
-      onSuccess: (_) {
-        state.successEvent.value = AccountSuccessEvent.created;
-        state.clearMessage(); // Limpa mensagens anteriores
+      onSuccess: (newAccount) {
+        final currentList = state.state.value;
+        final newlist = [
+          ...currentList,
+          newAccount,
+        ]; // Adiciona o novo personagem à lista
+        state.state.value = newlist;
       },
-      onFailure: (err) {
-        state.setMessage(err.msg);
-      },
+      onFailure: (err) =>
+          state.setMessage(err.msg), // registra o erro no estado
     );
   }
 
-  // atualizar Account
-  void _observeUpdateAccount() {
-    _observeCommand<void>(
-      _updateAccountCommand,
-      onSuccess: (_) {
-        state.successEvent.value = AccountSuccessEvent.updated;
-        state.clearMessage(); // Limpa mensagens anteriores
-        
+  /// Deletar um personagem
+  void _observeDeleteAccount() {
+    _observeCommand<Account>(
+      _deleteAccountCommand,
+      onSuccess: (deletedAccount) {
+        final newList = state.state.value
+            .where((c) => c.id != deletedAccount.id)
+            .toList();
+
+        state.state.value = newList;
       },
-      onFailure: (err) {
-        state.setMessage(err.msg);
-      },
+      onFailure: (err) => state.setMessage(err.msg),
     );
   }
+
+  void _observeUpdateAccount() {
+  _observeCommand<Account>(
+    _updateAccountCommand,
+    onSuccess: (updatedAccount) {
+      final list =
+          List<Account>.from(
+            state.state.value,
+          );
+
+      final index = list.indexWhere(
+        (c) => c.id == updatedAccount.id,
+      );
+
+      if (index != -1) {
+        list[index] = updatedAccount;
+      }
+
+      state.state.value = list;
+    },
+  );
+}
 
   // ========================================================
   //   MÉTODOS PÚBLICOS (CHAMADOS PELOS WIDGETS)
   //   que disparam os commands
   // ========================================================
-  Future<void> fetchAccount() async {
+  Future<void> getAllAccounts(String userId) async {
     state.clearMessage(); // Limpa mensagens anteriores
-    await _getAccountCommand.executeWith(());
+    await _getAllAccountsCommand.executeWith((userId: userId));
   }
 
-  Future<void> deleteAccount() async {
+  Future<void> deleteAccount(String id) async {
     state.clearMessage(); // Limpa mensagens anteriores
-    await _deleteAccountCommand.executeWith(());
+    await _deleteAccountCommand.executeWith((id: id));
   }
 
   Future<void> saveAccount(Account account) async {
-    state.setAccount(account); // Atualiza o estado
+    state.clearMessage(); // Atualiza o estado
     await _saveAccountCommand.executeWith((account: account));
   }
 
   Future<void> updateAccount(Account account) async {
-    state.setAccount(account); // Atualiza o estado
+    state.clearMessage(); // Atualiza o estado
     await _updateAccountCommand.executeWith((account: account));
   }
 }

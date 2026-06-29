@@ -19,7 +19,7 @@ class CharactersViewModel {
     // dispara os commands e effects
     commands = CharactersCommandsViewModel(
       state: _state,
-      getAccountCommand: GetAllCharactersCommand(facade),
+      getAllCharactersCommand: GetAllCharactersCommand(facade),
       createCharacterCommand: CreateCharacterCommand(facade),
       deleteCharacterCommand: DeleteCharacterCommand(facade),
       editCharacterCommand: EditCharacterCommand(facade),

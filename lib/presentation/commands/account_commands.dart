@@ -6,7 +6,7 @@ import '../../domain/facades/account_facade_usecases_interface.dart';
 import '../../domain/models/account_entity.dart';
 
 final class SaveAccountCommand
-    extends ParameterizedCommand<void, Failure, AccountParams> {
+    extends ParameterizedCommand<Account, Failure, AccountParams> {
   final IAccountFacadeUseCases _accountFacadeUseCases;
 
   SaveAccountCommand(this._accountFacadeUseCases);
@@ -21,7 +21,7 @@ final class SaveAccountCommand
 }
 
 final class UpdateAccountCommand
-    extends ParameterizedCommand<void, Failure, AccountParams> {
+    extends ParameterizedCommand<Account, Failure, AccountParams> {
   final IAccountFacadeUseCases _accountFacadeUseCases;
 
   UpdateAccountCommand(this._accountFacadeUseCases);
@@ -66,7 +66,7 @@ final class GetAccountByIdCommand
 }
 
 final class DeleteAccountCommand
-    extends ParameterizedCommand<void, Failure, AccountIdParams> {
+    extends ParameterizedCommand<Account, Failure, AccountIdParams> {
   final IAccountFacadeUseCases _accountFacadeUseCases;
 
   DeleteAccountCommand(this._accountFacadeUseCases);
