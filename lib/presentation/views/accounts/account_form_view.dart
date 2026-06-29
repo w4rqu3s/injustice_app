@@ -94,8 +94,6 @@ class _AccountFormViewState extends State<AccountFormView> {
           energy: _energy,
         );
 
-        
-
     Navigator.pop(context, account);
   }
 

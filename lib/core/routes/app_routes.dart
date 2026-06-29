@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:injustice_app/presentation/views/accounts/account_header.dart';
 import 'package:injustice_app/presentation/views/accounts/list_of/accounts_view.dart';
 
 import '../../domain/models/account_entity.dart';
@@ -29,6 +30,16 @@ class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: AppPaths.home,
     routes: <RouteBase>[
+      GoRoute(
+        path: '/account',
+        name: 'account',
+        pageBuilder: (context, state) {
+          final account = state.extra as Account;
+          return NoTransitionPage(
+            child: AccountHeader(account: account),
+          );
+        },
+      ),
       GoRoute(
         path: AppPaths.home,
         name: AppRouteNames.home,
