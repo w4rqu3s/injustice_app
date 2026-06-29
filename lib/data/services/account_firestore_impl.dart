@@ -36,8 +36,9 @@ final class AccountFirestoreService implements IAccountRemoteStorage {
   @override
   Future<ListAccountResult> getAllAccounts(String userId) async {
       try {
-      final querySnapshot = await _collection.
-        where('accountId', isEqualTo: userId).get();
+      // final querySnapshot = await _collection.
+      //   where('accountId', isEqualTo: userId).get();
+      final querySnapshot = await _collection.get();
 
       if (querySnapshot.docs.isEmpty) {
         return Error(EmptyResultFailure());

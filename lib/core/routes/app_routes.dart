@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:injustice_app/presentation/views/accounts/list_of/accounts_view.dart';
 
 import '../../domain/models/account_entity.dart';
 import '../../presentation/views/about_view.dart';
-import '../../presentation/views/account_create_view.dart';
 import '../../presentation/views/characters/list_of/characters_view.dart';
 import '../../presentation/views/home_view.dart';
 
@@ -10,7 +10,7 @@ import '../../presentation/views/home_view.dart';
 class AppRouteNames {
   static const home = 'home';
   static const about = 'about';
-  static const accountCreate = 'account_create';
+  static const accounts = 'accounts';
   static const characters = 'characters';
 }
 
@@ -18,7 +18,7 @@ class AppRouteNames {
 class AppPaths {
   static const home = '/home';
   static const about = '/about';
-  static const accountCreate = '/account-create';
+  static const accounts = '/accounts';
   static const characters = '/characters';
 }
 
@@ -36,17 +36,18 @@ class AppRouter {
             const NoTransitionPage(child: HomeView()),
       ),
       GoRoute(
-        path: AppPaths.accountCreate,
-        name: AppRouteNames.accountCreate,
-        pageBuilder: (context, state) =>
-            const NoTransitionPage(child: AccountCreateView()),
-      ),
-      GoRoute(
         path: AppPaths.characters,
         name: AppRouteNames.characters,
         pageBuilder: (context, state) {
           final account = state.extra as Account;
           return NoTransitionPage(child: CharactersView(account: account));
+        },
+      ),
+      GoRoute(
+        path: AppPaths.accounts,
+        name: AppRouteNames.accounts,
+        pageBuilder: (context, state) {
+          return NoTransitionPage(child: AccountsView());
         },
       ),
       GoRoute(
