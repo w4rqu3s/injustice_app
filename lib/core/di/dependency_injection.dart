@@ -1,6 +1,6 @@
 import 'package:auto_injector/auto_injector.dart';
-import 'package:injustice_app/data/services/account_firestore_service.dart';
-import 'package:injustice_app/data/services/character_firestore_service.dart';
+import 'package:injustice_app/data/services/account_firestore_impl.dart';
+import 'package:injustice_app/data/services/character_firestore_impl.dart';
 
 import '../../data/repositories/account_repository_impl.dart';
 import '../../data/repositories/account_repository_interface.dart';

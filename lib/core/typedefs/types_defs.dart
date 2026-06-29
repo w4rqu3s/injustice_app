@@ -8,6 +8,7 @@ import '../patterns/result.dart';
 // typedefs para tipo Result
 typedef VoidResult = Result<void, Failure>;
 typedef AccountResult = Result<Account, Failure>;
+typedef ListAccountResult = Result<List<Account>, Failure>;
 typedef CharacterResult = Result<Character,Failure>;
 typedef ListCharacterResult = Result<List<Character>, Failure>;
 
