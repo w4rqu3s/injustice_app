@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:injustice_app/authentication/data/services/remote/i_auth_service.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
 import 'core/di/dependency_injection.dart';
@@ -17,6 +18,10 @@ Future<void> main() async {
   );
   setupDependencyInjection();
 
+  final authService = injector.get<IAuthService>();
+
+  await authService.initSession();
+
   final themeController = injector.get<ThemeController>();
 
   runApp(
@@ -27,7 +32,6 @@ Future<void> main() async {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: themeController.themeMode.value,
-        //home: const MyHomePage(title: 'Flutter Demo Home Page'),
         routerConfig: AppRouter.router,
       ),
     ),

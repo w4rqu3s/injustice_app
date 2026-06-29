@@ -1,4 +1,5 @@
 import 'package:injustice_app/core/di/dependency_injection.dart';
+import 'package:injustice_app/core/routes/app_routes.dart';
 import 'package:injustice_app/core/routes/auth_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -154,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (auth == null) {
                               _showSnack('Falha ao autenticar usuário.');
                             } else {
-                              // context.goNamed(AppRouteNames.adventureHome);
+                              context.goNamed(GlobalPaths.underConstruction);
                             }
                           } catch (e) {
                             _showSnack('Erro ao fazer login: $e');

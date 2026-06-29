@@ -38,7 +38,7 @@ class AppRouter {
   AppRouter._();
 
   static final GoRouter router = GoRouter(
-    initialLocation: AppPaths.home,
+    initialLocation: AuthPaths.splash,
     routes: <RouteBase>[
       ...authRoutes,
       GoRoute(

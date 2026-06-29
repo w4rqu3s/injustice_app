@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/routes/app_routes.dart';
-import 'package:signals_flutter/signals_flutter.dart';
 
+import '../../core/routes/app_routes.dart';
 
 /// Drawer reutilizável para navegação entre páginas
 class AppDrawer extends StatelessWidget {
-  AppDrawer({super.key});
-
-  // final _vmAccount = injector.get<AccountViewModel>();
+  const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Obter rota atual para destacar item selecionado
     final currentRoute = GoRouterState.of(context).uri.toString();
 
     return Drawer(
@@ -35,113 +31,73 @@ class AppDrawer extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Injusce 2 Mobile',
+                  'Injustice 2 Mobile',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondary,
-                  ),
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                 ),
               ],
             ),
           ),
+
+          /// USER
           ListTile(
             leading: Icon(
-              Icons.home,
-              // color: currentRoute == AppRoutes.home
-              color: currentRoute == AppPaths.home
+              Icons.person,
+              color: currentRoute == GlobalPaths.underConstruction
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.onSecondary,
             ),
             title: Text(
-              'Início',
-              // style: currentRoute == AppRoutes.home
-              style: currentRoute == AppPaths.home
+              'Usuário',
+              style: currentRoute == GlobalPaths.underConstruction
                   ? TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary,
                     )
                   : null,
             ),
-            selected: currentRoute == AppPaths.home,
+            selected: currentRoute == GlobalPaths.underConstruction,
             onTap: () {
               context.pop();
-              if (currentRoute != AppPaths.home) {
-                context.goNamed(AppRouteNames.home);
+
+              if (currentRoute != GlobalPaths.underConstruction) {
+                context.goNamed(GlobalRouteNames.underConstruction);
               }
             },
           ),
-          // ListTile(
-          //   leading: Icon(
-          //     Icons.person_add,
-          //     color: currentRoute == AppPaths.accountCreate
-          //         ? Theme.of(context).colorScheme.primary
-          //         : Theme.of(context).colorScheme.onSecondary,
-          //   ),
-          //   title: Watch(
-          //     (_) => Text(
-          //       _vmAccount.accountState.title.value,
-          //       // _vmAccount.accountState.hasAccount.value
-          //       //     ? 'Editar Conta'
-          //       //     : 'Criar Conta',
-          //       style: currentRoute == AppPaths.accountCreate
-          //           ? TextStyle(
-          //               fontWeight: FontWeight.bold,
-          //               color: Theme.of(context).colorScheme.primary,
-          //             )
-          //           : null,
-          //     ),
-          //   ),
-          //   selected: currentRoute == AppPaths.accountCreate,
-          //   onTap: () {
-          //     context.pop();
-          //     if (currentRoute != AppPaths.accountCreate) {
-          //       context.goNamed(AppRouteNames.accountCreate);
-          //     }
-          //   },
-          // ),
-          Watch((_) {
-            // final hasAccount = _vmAccount.accountState.hasAccount.value;
 
-            return ListTile(
-              leading: Icon(
-                Icons.people,
-                color: // !hasAccount ?
-                     Colors.grey
-                    // : currentRoute == AppPaths.characters
-                    // ? Theme.of(context).colorScheme.primary
-                    // : Theme.of(context).colorScheme.onSecondary,
-              ),
-              title: Text(
-                'Personagens',
-                style: // !hasAccount ?
-                     const TextStyle(color: Colors.grey)
-                    // : currentRoute == AppPaths.characters
-                    // ? TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     color: Theme.of(context).colorScheme.primary,
-                    //   )
-                    // : null,
-              ),
-              selected: currentRoute == AppPaths.characters,
-              onTap: // hasAccount ?
-                   () {
-                      context.pop();
+          /// ACCOUNTS
+          ListTile(
+            leading: Icon(
+              Icons.account_circle,
+              color: currentRoute == AppPaths.accounts
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.onSecondary,
+            ),
+            title: Text(
+              'Contas',
+              style: currentRoute == AppPaths.accounts
+                  ? TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    )
+                  : null,
+            ),
+            selected: currentRoute == AppPaths.accounts,
+            onTap: () {
+              context.pop();
 
-                      // Account account = _vmAccount.accountState.state.value!;
+              if (currentRoute != AppPaths.accounts) {
+                context.goNamed(AppRouteNames.accounts);
+              }
+            },
+          ),
 
-                      if (currentRoute != AppPaths.characters) {
-                        context.goNamed(
-                          AppRouteNames.characters,
-                          // extra: account,
-                        );
-                      }
-                    }
-                  // : null,
-            );
-          }),
+          /// ABOUT
           ListTile(
             leading: Icon(
               Icons.info,
-              // color: Theme.of(context).colorScheme.onSecondary,
               color: currentRoute == AppPaths.about
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.onSecondary,
@@ -158,6 +114,7 @@ class AppDrawer extends StatelessWidget {
             selected: currentRoute == AppPaths.about,
             onTap: () {
               context.pop();
+
               if (currentRoute != AppPaths.about) {
                 context.goNamed(AppRouteNames.about);
               }
