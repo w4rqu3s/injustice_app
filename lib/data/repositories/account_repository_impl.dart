@@ -14,22 +14,27 @@ final class AccountRepositoryImpl implements IAccountRepository {
   }) : _remoteStorage = remoteStorage;
 
   @override
-  Future<AccountResult> getAccount() {
-    return _remoteStorage.getAccount(); 
+  Future<ListAccountResult> getAllAccounts(String userId) {
+    return _remoteStorage.getAllAccounts(userId); 
   }
 
   @override
-  Future<VoidResult> deleteAccount() {
-    return _remoteStorage.deleteAccount();
+  Future<AccountResult> getAccountById(String id) {
+    return _remoteStorage.getAccountById(id); 
   }
 
   @override
-  Future<VoidResult> saveAccount(Account account) {
+  Future<AccountResult> deleteAccount(String id) {
+    return _remoteStorage.deleteAccount(id);
+  }
+
+  @override
+  Future<AccountResult> saveAccount(Account account) {
     return _remoteStorage.saveAccount(account);
   }
   
   @override
-  Future<VoidResult> updateAccount(Account account) {
+  Future<AccountResult> updateAccount(Account account) {
     return _remoteStorage.updateAccount(account);
   }
 }

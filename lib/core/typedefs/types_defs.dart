@@ -15,6 +15,9 @@ typedef ListCharacterResult = Result<List<Character>, Failure>;
 // typedfs para parâmetros
 typedef AccountParams = ({Account account});
 
+typedef AccountIdParams = ({String id});
+typedef AccountUserParams = ({String userId});
+
 /// tipos usadoos Conta de Usuario
 typedef NoParams = ();
 typedef AccountNameParams = ({String accountName});

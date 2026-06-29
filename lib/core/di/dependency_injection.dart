@@ -32,7 +32,8 @@ void setupDependencyInjection() {
   injector.addSingleton<IAccountRepository>(AccountRepositoryImpl.new);
   // Use Cases e Facades
   injector.addSingleton<IAccountFacadeUseCases>(AccountFacadeUsecasesImpl.new);
-  injector.addSingleton<IGetAccountUseCase>(GetAccountUseCaseImpl.new);
+  injector.addSingleton<IGetAllAccountsUseCase>(GetAllAccountsUseCaseImpl.new);
+  injector.addSingleton<IGetAccountByIdUseCase>(GetAccountByIdUseCaseImpl.new);
   injector.addSingleton<ISaveAccountUseCase>(SaveAccountUseCaseImpl.new);
   injector.addSingleton<IDeleteAccountUseCase>(DeleteAccountUseCaseImpl.new);
   injector.addSingleton<IUpdateAccountUseCase>(UpdateAccountUseCaseImpl.new);

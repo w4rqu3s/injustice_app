@@ -6,24 +6,32 @@ import '../usecases/account_usecases_interfaces.dart';
 /// chamar os usecases relacionados a Account
 
 final class AccountFacadeUsecasesImpl implements IAccountFacadeUseCases {
-  final IGetAccountUseCase _getAccountUseCase;
+  final IGetAllAccountsUseCase _getAllAccountsUseCase;
+  final IGetAccountByIdUseCase _getAccountByIdUseCase;
   final ISaveAccountUseCase _saveAccountUseCase;
   final IUpdateAccountUseCase _updateAccountUseCase;
   final IDeleteAccountUseCase _deleteAccountUseCase;
 
   AccountFacadeUsecasesImpl({
-    required IGetAccountUseCase getAccountUseCase,
+    required IGetAllAccountsUseCase getAllAccountsUseCase,
+    required IGetAccountByIdUseCase getAccountByIdUseCase,
     required ISaveAccountUseCase saveAccountUseCase,
     required IUpdateAccountUseCase updateAccountUseCase,
     required IDeleteAccountUseCase deleteAccountUseCase,
-  }) : _getAccountUseCase = getAccountUseCase,
+  }) : _getAllAccountsUseCase = getAllAccountsUseCase,
+       _getAccountByIdUseCase = getAccountByIdUseCase,
        _saveAccountUseCase = saveAccountUseCase,
        _updateAccountUseCase = updateAccountUseCase,
        _deleteAccountUseCase = deleteAccountUseCase;
 
   @override
-  Future<AccountResult> getAccount(NoParams params) {
-    return _getAccountUseCase(params);
+  Future<ListAccountResult> getAllAccounts(AccountUserParams params) {
+    return _getAllAccountsUseCase(params);
+  }
+
+  @override
+  Future<AccountResult> getAccountById(AccountIdParams params) {
+    return _deleteAccountUseCase(params);
   }
 
   @override
@@ -32,7 +40,7 @@ final class AccountFacadeUsecasesImpl implements IAccountFacadeUseCases {
   }
 
   @override
-  Future<VoidResult> deleteAccount(NoParams params) {
+  Future<AccountResult> deleteAccount(AccountIdParams params) {
     return _deleteAccountUseCase(params);
   }
 

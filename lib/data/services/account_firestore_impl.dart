@@ -18,14 +18,14 @@ final class AccountFirestoreService implements IAccountRemoteStorage {
       _firestore.collection(_collectionKey);
 
   @override
-  Future<VoidResult> saveAccount(Account account) async {
+  Future<AccountResult> saveAccount(Account account) async {
     try {
       final accountMap = AccountMapper.toMap(account);
 
       // Salva os dados utilizando o id da própria conta como identificador do documento
       await _collection.doc(account.id).set(accountMap);
       
-      return Success(null);
+      return Success(account);
     } catch (e) {
       return Error(
         ApiLocalFailure('Firestore - Erro ao salvar conta: $e'),
@@ -34,11 +34,32 @@ final class AccountFirestoreService implements IAccountRemoteStorage {
   }
 
   @override
-  Future<AccountResult> getAccount() async {
+  Future<ListAccountResult> getAllAccounts(String userId) async {
+      try {
+      final querySnapshot = await _collection.
+        where('accountId', isEqualTo: userId).get();
+
+      if (querySnapshot.docs.isEmpty) {
+        return Error(EmptyResultFailure());
+      }
+
+      final accounts = querySnapshot.docs.map((doc) {
+        return AccountMapper.fromMap(doc.data());
+      }).toList();
+
+      return Success(accounts);
+    } catch (e) {
+      return Error(
+        ApiLocalFailure('Firestore - Erro ao obter contas: $e'),
+      );
+    }
+  }
+
+  @override
+  Future<AccountResult> getAccountById(String id) async {
     try {
       
-      // Exemplo buscando a primeira conta encontrada (para manter compatibilidade se houver apenas uma):
-      final querySnapshot = await _collection.limit(1).get();
+      final querySnapshot = await _collection.where('id', isEqualTo: id).get();
 
       if (querySnapshot.docs.isEmpty) {
         return Error(EmptyResultFailure());
@@ -56,13 +77,13 @@ final class AccountFirestoreService implements IAccountRemoteStorage {
   }
 
   @override
-  Future<VoidResult> updateAccount(Account account) async {
+  Future<AccountResult> updateAccount(Account account) async {
     try {
       final accountMap = AccountMapper.toMap(account);
 
       await _collection.doc(account.id).update(accountMap);
       
-      return Success(null);
+      return Success(account);
     } catch (e) {
       return Error(
         ApiLocalFailure('Firestore - Erro ao atualizar conta: $e'),
@@ -71,16 +92,21 @@ final class AccountFirestoreService implements IAccountRemoteStorage {
   }
 
   @override
-  Future<VoidResult> deleteAccount() async {
+  Future<AccountResult> deleteAccount(String id) async {
     try {
-      final querySnapshot = await _collection.limit(1).get();
+      final docRef = _collection.doc(id);
+      final docSnapshot = await docRef.get();
 
-      if (querySnapshot.docs.isNotEmpty) {
-        final docId = querySnapshot.docs.first.id;
-        await _collection.doc(docId).delete();
+      if (!docSnapshot.exists || docSnapshot.data() == null) {
+        return Error(ApiLocalFailure('Conta não encontrado para deleção'));
       }
 
-      return Success(null);
+      final account = AccountMapper.fromMap(docSnapshot.data()!);
+
+      // Deleta o documento do Firestore
+      await docRef.delete();
+
+      return Success(account);
     } catch (e) {
       return Error(
         ApiLocalFailure('Firestore - Erro ao deletar conta: $e'),

@@ -1,14 +1,17 @@
 import '../../core/patterns/i_usecases.dart';
 import '../../core/typedefs/types_defs.dart';
 
-abstract interface class IGetAccountUseCase
-    implements IUseCase<AccountResult, NoParams> {}
+abstract interface class IGetAllAccountsUseCase
+  implements IUseCase<ListAccountResult, AccountUserParams> {}
+
+abstract interface class IGetAccountByIdUseCase
+  implements IUseCase<AccountResult, AccountIdParams> {}
 
 abstract interface class ISaveAccountUseCase
-    implements IUseCase<VoidResult, AccountParams> {}
+  implements IUseCase<AccountResult, AccountParams> {}
 
 abstract interface class IDeleteAccountUseCase
-    implements IUseCase<VoidResult, NoParams> {}
+  implements IUseCase<AccountResult, AccountIdParams> {}
 
 abstract interface class IUpdateAccountUseCase
-    implements IUseCase<VoidResult, AccountParams> {}
+  implements IUseCase<AccountResult, AccountParams> {}
