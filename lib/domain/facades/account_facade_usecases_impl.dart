@@ -31,11 +31,11 @@ final class AccountFacadeUsecasesImpl implements IAccountFacadeUseCases {
 
   @override
   Future<AccountResult> getAccountById(AccountIdParams params) {
-    return _deleteAccountUseCase(params);
+    return _getAccountByIdUseCase(params);
   }
 
   @override
-  Future<VoidResult> saveAccount(AccountParams params) {
+  Future<AccountResult> saveAccount(AccountParams params) {
     return _saveAccountUseCase(params);
   }
 
@@ -45,7 +45,7 @@ final class AccountFacadeUsecasesImpl implements IAccountFacadeUseCases {
   }
 
   @override
-  Future<VoidResult> updateAccount(AccountParams params) {
+  Future<AccountResult> updateAccount(AccountParams params) {
     return _updateAccountUseCase(params);
   }
 }

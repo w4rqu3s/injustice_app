@@ -12,7 +12,7 @@ final class SaveAccountCommand
   SaveAccountCommand(this._accountFacadeUseCases);
 
   @override
-  Future<VoidResult> execute() async {
+  Future<AccountResult> execute() async {
     if (parameter == null) {
       return Error(InputFailure('Parametro nulo para criar conta.'));
     }
@@ -27,7 +27,7 @@ final class UpdateAccountCommand
   UpdateAccountCommand(this._accountFacadeUseCases);
 
   @override
-  Future<VoidResult> execute() async {
+  Future<AccountResult> execute() async {
     if (parameter == null) {
       return Error(InputFailure('Parametro nulo para atualizar conta.'));
     }
@@ -35,26 +35,47 @@ final class UpdateAccountCommand
   }
 }
 
-final class GetAccountCommand
-    extends ParameterizedCommand<Account, Failure, NoParams> {
+final class GetAllAccountsCommand
+    extends ParameterizedCommand<List<Account>, Failure, AccountUserParams> {
   final IAccountFacadeUseCases _accountFacadeUseCases;
 
-  GetAccountCommand(this._accountFacadeUseCases);
+  GetAllAccountsCommand(this._accountFacadeUseCases);
+
+  @override
+  Future<ListAccountResult> execute() async {
+    if (parameter == null) {
+      return Error(InputFailure('Parametro nulo para buscar todas as contas.'));
+    }
+    return await _accountFacadeUseCases.getAllAccounts((parameter!));
+  }
+}
+
+final class GetAccountByIdCommand
+    extends ParameterizedCommand<Account, Failure, AccountIdParams> {
+  final IAccountFacadeUseCases _accountFacadeUseCases;
+
+  GetAccountByIdCommand(this._accountFacadeUseCases);
 
   @override
   Future<AccountResult> execute() async {
-    return await _accountFacadeUseCases.getAccount(());
+    if (parameter == null) {
+      return Error(InputFailure('Parametro nulo para buscar conta.'));
+    }
+    return await _accountFacadeUseCases.getAccountById((parameter!));
   }
 }
 
 final class DeleteAccountCommand
-    extends ParameterizedCommand<void, Failure, NoParams> {
+    extends ParameterizedCommand<void, Failure, AccountIdParams> {
   final IAccountFacadeUseCases _accountFacadeUseCases;
 
   DeleteAccountCommand(this._accountFacadeUseCases);
 
   @override
-  Future<VoidResult> execute() async {
-    return await _accountFacadeUseCases.deleteAccount(());
+  Future<AccountResult> execute() async {
+    if (parameter == null) {
+      return Error(InputFailure('Parametro nulo para deletar conta.'));
+    }
+    return await _accountFacadeUseCases.deleteAccount((parameter!));
   }
 }
