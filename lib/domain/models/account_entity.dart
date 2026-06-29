@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class Account extends Equatable {
   final String id;
+  final String userId;
   final String name;
-  final String email;
   final String displayName;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -14,8 +14,8 @@ class Account extends Equatable {
 
   const Account({
     required this.id,
+    required this.userId,
     required this.name,
-    required this.email,
     required this.displayName,
     required this.createdAt,
     required this.updatedAt,
@@ -28,8 +28,8 @@ class Account extends Equatable {
 
   Account copyWith({
     String? id,
+    String? userId,
     String? name,
-    String? email,
     String? displayName,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -39,9 +39,9 @@ class Account extends Equatable {
     int? energy,
   }) {
     return Account(
+      userId: userId ?? this.userId,
       id: id ?? this.id,
       name: name ?? this.name,
-      email: email ?? this.email,
       displayName: displayName ?? this.displayName,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -55,8 +55,8 @@ class Account extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        userId,
         name,
-        email,
         displayName,
         createdAt,
         updatedAt,
@@ -70,8 +70,8 @@ class Account extends Equatable {
   String toString() {
     return 'Account('
         'id: $id, '
+        'userId: $userId, '
         'name: $name, '
-        'email: $email, '
         'displayName: $displayName, '
         'level: $level, '
         'gold: $gold, '

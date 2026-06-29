@@ -4,8 +4,8 @@ class AccountMapper {
   static Map<String, dynamic> toMap(Account account) {
     return {
       'id': account.id,
+      'userId': account.userId,
       'name': account.name,
-      'email': account.email,
       'displayName': account.displayName,
       'createdAt': account.createdAt.toIso8601String(),
       'updatedAt': account.updatedAt.toIso8601String(),
@@ -19,8 +19,8 @@ class AccountMapper {
   static Account fromMap(Map<String, dynamic> map) {
     return Account(
       id: map['id'] as String,
+      userId: map['userId'] as String,
       name: map['name'] as String,
-      email: map['email'] as String,
       displayName: map['displayName'] as String,
       createdAt: DateTime.parse(map['createdAt'] as String),
       updatedAt: DateTime.parse(map['updatedAt'] as String),

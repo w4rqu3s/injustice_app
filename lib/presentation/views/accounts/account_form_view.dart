@@ -46,7 +46,6 @@ class _AccountFormViewState extends State<AccountFormView> {
       final account = widget.account!;
 
       _nameController.text = account.name;
-      _emailController.text = account.email;
       _displayNameController.text = account.displayName;
 
       _createdAt = account.createdAt;
@@ -73,7 +72,6 @@ class _AccountFormViewState extends State<AccountFormView> {
     final account =
         widget.account?.copyWith(
           name: _nameController.text.trim(),
-          email: _emailController.text.trim(),
           displayName: _displayNameController.text.trim(),
           level: _level,
           gold: _gold,
@@ -84,14 +82,13 @@ class _AccountFormViewState extends State<AccountFormView> {
         Account(
           id: const Uuid().v4(),
           name: _nameController.text.trim(),
-          email: _emailController.text.trim(),
           displayName: _displayNameController.text.trim(),
           createdAt: now,
           updatedAt: now,
           level: _level,
           gold: _gold,
           gems: _gems,
-          energy: _energy,
+          energy: _energy, userId: '',
         );
 
     Navigator.pop(context, account);

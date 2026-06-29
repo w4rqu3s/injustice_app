@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:injustice_app/core/routes/app_routes.dart';
 import 'package:injustice_app/core/theme/app_theme.dart';
 import 'package:injustice_app/domain/models/account_entity.dart';
-import 'package:injustice_app/presentation/widgets/app_drawer.dart';
 import 'package:intl/intl.dart';
 
 class AccountHeader extends StatelessWidget {
@@ -44,7 +43,6 @@ class _AccountBody extends StatelessWidget {
         children: [
           _AccountHeaderCard(
             displayName: account.displayName,
-            email: account.email,
             level: account.level,
           ),
 
@@ -138,12 +136,10 @@ class _AccountBody extends StatelessWidget {
 /// Card de cabeçalho com informações básicas da conta
 class _AccountHeaderCard extends StatelessWidget {
   final String displayName;
-  final String email;
   final int level;
 
   const _AccountHeaderCard({
     required this.displayName,
-    required this.email,
     required this.level,
   });
 
@@ -196,11 +192,6 @@ class _AccountHeaderCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      email,
-                      style: context.textStyles.bodyMedium,
-                      overflow: TextOverflow.ellipsis,
-                    ),
                   ],
                 ),
               ),

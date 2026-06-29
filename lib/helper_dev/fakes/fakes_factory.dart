@@ -14,7 +14,6 @@ abstract class FakeFactory {
     return Account(
       id: _faker.datatype.uuid(),
       name: _faker.name.fullName(),
-      email: _faker.internet.email(),
       displayName: _faker.name.firstName(),
       createdAt: now.subtract(
         Duration(days: _faker.datatype.number(min: 10, max: 365)),
@@ -23,7 +22,7 @@ abstract class FakeFactory {
       level: _faker.datatype.number(min: 1, max: 80),
       gold: _faker.datatype.float(min: 0, max: 100000, precision: 2),
       gems: _faker.datatype.number(min: 0, max: 500),
-      energy: _faker.datatype.number(min: 1, max: 100),
+      energy: _faker.datatype.number(min: 1, max: 100), userId: '',
     );
   }
 

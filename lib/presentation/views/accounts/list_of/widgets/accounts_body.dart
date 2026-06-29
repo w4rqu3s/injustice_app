@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injustice_app/presentation/controllers/account_viewmodel.dart';
 import 'package:injustice_app/presentation/views/accounts/account_form_view.dart';
-import 'package:injustice_app/presentation/views/accounts/account_header.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
 import '../../../../../core/theme/app_theme.dart';
