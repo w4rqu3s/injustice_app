@@ -12,12 +12,14 @@ class CharactersViewModel {
   /// Getter público para acessar o estado de Account
   CharactersStateViewmodel get charactersState => _state;
 
-  /// dispara os commands e effects e observa as mudanças de estado
+  /// dispara os commands e effects e observa as mudanças de estado + Stream
   late final CharactersCommandsViewModel commands;
+
   CharactersViewModel(ICharacterFacadeUseCases facade) {
     _state = CharactersStateViewmodel();
     // dispara os commands e effects
     commands = CharactersCommandsViewModel(
+      facade: facade,
       state: _state,
       getAllCharactersCommand: GetAllCharactersCommand(facade),
       createCharacterCommand: CreateCharacterCommand(facade),
@@ -26,12 +28,20 @@ class CharactersViewModel {
      );
   }
    // --- Comandos expostos ---
-  GetAllCharactersCommand get getAllCharactersCommand =>
-      commands.getAllCharactersCommand; 
+  // GetAllCharactersCommand get getAllCharactersCommand =>
+  //     commands.getAllCharactersCommand; 
   CreateCharacterCommand get createCharacterCommand =>
       commands.createCharacterCommand;
   DeleteCharacterCommand get deleteCharacterCommand => 
       commands.deleteCharacterCommand;
   EditCharacterCommand get editCharacterCommand => 
       commands.editCharacterCommand;
+
+  void watchCharacters(String accountId) {
+    commands.watchCharacters(accountId);
+  }
+
+  void dispose() {
+    commands.dispose();
+  }
 }

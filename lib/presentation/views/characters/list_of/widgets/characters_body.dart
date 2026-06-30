@@ -25,8 +25,7 @@ class CharactersBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Watch((context) {
-      final isLoading =
-          viewModel.commands.getAllCharactersCommand.isExecuting.value;
+      final isLoading = viewModel.charactersState.isLoading.value;
 
       final characters = viewModel.charactersState.sortedCharacters.value;
 

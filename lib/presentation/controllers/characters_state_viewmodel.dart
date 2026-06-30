@@ -65,6 +65,9 @@ class CharactersStateViewmodel {
   /// Mensagem de erro ou aviso, inicializada como nula
   final message = signal<String?>(null);
 
+  // Estado para Stream
+  final isLoading = signal(false);
+
   /// Indica se o painel de filtros está expandido ou não
   final isFilterPanelExpanded = signal(false);
 
