@@ -217,6 +217,9 @@ class _LoginPageState extends State<LoginPage> {
                             return;
                           }
 
+                          context.goNamed(GlobalRouteNames.underConstruction);
+
+
                           // final auth = authController.session.session.value;
 
                           // if (auth == null) {

@@ -1,5 +1,6 @@
 import 'package:injustice_app/core/failure/failure.dart';
 import 'package:injustice_app/core/typedefs/types_defs.dart';
+import 'package:injustice_app/firebase_options.dart';
 
 import '../local/auth_local_session_manager.dart';
 import '../../../domain/models/session_token.dart';
@@ -154,7 +155,7 @@ class FirebaseAuthService implements IAuthService {
       // Obtém a instância global do GoogleSignIn
       final googleSignIn = GoogleSignIn.instance;
       // Inicializa se necessário
-      await googleSignIn.initialize();
+      await googleSignIn.initialize(serverClientId:DefaultFirebaseOptions.webClientId);
       // Inicia o fluxo de login
       final googleUser = await googleSignIn.authenticate();
 
