@@ -31,9 +31,7 @@ class _AccountFormViewState extends State<AccountFormView> {
   double _gold = 0;
   int _gems = 0;
   int _energy = 1;
-
-  DateTime _createdAt = DateTime.now();
-
+  
   @override
   void initState() {
     super.initState();
@@ -48,7 +46,6 @@ class _AccountFormViewState extends State<AccountFormView> {
       _nameController.text = account.name;
       _displayNameController.text = account.displayName;
 
-      _createdAt = account.createdAt;
       _level = account.level;
       _gold = account.gold;
       _gems = account.gems;

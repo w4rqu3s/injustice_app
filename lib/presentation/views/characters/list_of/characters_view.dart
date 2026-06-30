@@ -4,7 +4,6 @@ import 'widgets/characters_body.dart';
 import 'widgets/characters_floating_button.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../domain/models/account_entity.dart';
-import '../../../../domain/models/character_entity.dart';
 import '../../../controllers/characters_view_model.dart';
 import '../../../widgets/app_drawer.dart';
 
@@ -35,16 +34,6 @@ class _CharactersViewState extends State<CharactersView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // _viewModel.refresh();
-  }
-
-  Future<void> _deleteCharacter(Character character) async {
-    // await _viewModel.deleteCharacter(character.id);
-
-    if (mounted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('${character.name} removido')));
-    }
   }
 
   @override
