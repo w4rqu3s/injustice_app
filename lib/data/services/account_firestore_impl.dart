@@ -36,19 +36,18 @@ final class AccountFirestoreService implements IAccountRemoteStorage {
   @override
   Future<ListAccountResult> getAllAccounts(String userId) async {
       try {
-      // final querySnapshot = await _collection.
-      //   where('accountId', isEqualTo: userId).get();
-      final querySnapshot = await _collection.get();
+        final querySnapshot = await _collection.
+          where('userId', isEqualTo: userId).get();
 
-      if (querySnapshot.docs.isEmpty) {
-        return Error(EmptyResultFailure());
-      }
+        if (querySnapshot.docs.isEmpty) {
+          return Error(EmptyResultFailure());
+        }
 
-      final accounts = querySnapshot.docs.map((doc) {
-        return AccountMapper.fromMap(doc.data());
-      }).toList();
+        final accounts = querySnapshot.docs.map((doc) {
+          return AccountMapper.fromMap(doc.data());
+        }).toList();
 
-      return Success(accounts);
+        return Success(accounts);
     } catch (e) {
       return Error(
         ApiLocalFailure('Firestore - Erro ao obter contas: $e'),

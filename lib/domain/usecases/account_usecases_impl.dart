@@ -1,3 +1,5 @@
+import 'package:injustice_app/authentication/data/repositories/i_auth_repository.dart';
+
 import '../../core/typedefs/types_defs.dart';
 import '../../data/repositories/account_repository_interface.dart';
 import 'account_usecases_interfaces.dart';
@@ -7,13 +9,14 @@ import 'account_usecases_interfaces.dart';
 /// usecase para obter todas as contas de um usuário
 final class GetAllAccountsUseCaseImpl implements IGetAllAccountsUseCase {
   final IAccountRepository _repository;
+  final IAuthRepository _authRepository;
 
-  GetAllAccountsUseCaseImpl({required IAccountRepository repository})
-    : _repository = repository;
+  GetAllAccountsUseCaseImpl({required IAccountRepository repository, required IAuthRepository authRepository})
+    : _authRepository = authRepository, _repository = repository;
 
   @override
-  Future<ListAccountResult> call(AccountUserParams params) async {
-    return _repository.getAllAccounts(params.userId);
+  Future<ListAccountResult> call(NoParams params) async {
+    return _repository.getAllAccounts(_authRepository.currentSession!.user.id);
   }
 }
 
@@ -33,16 +36,23 @@ final class GetAccountByIdUseCaseImpl implements IGetAccountByIdUseCase {
 /// usecase para salvar a conta do usuario
 final class SaveAccountUseCaseImpl implements ISaveAccountUseCase {
   final IAccountRepository _repository;
+  final IAuthRepository _authRepository;
 
-  SaveAccountUseCaseImpl({required IAccountRepository repository})
-    : _repository = repository;
+  SaveAccountUseCaseImpl({required IAccountRepository repository, required IAuthRepository authRepository})
+    : _authRepository = authRepository, _repository = repository;
 
   @override
   Future<AccountResult> call(AccountParams params) async {
+
     await Future.delayed(
       const Duration(seconds: 3),
     ); // Simula um atraso para teste de loading
-    return _repository.saveAccount(params.account);
+
+    final accountWithId = params.account.copyWith(
+      userId: _authRepository.currentSession!.user.id
+    );
+
+    return _repository.saveAccount(accountWithId);
   }
 }
 

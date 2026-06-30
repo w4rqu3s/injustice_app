@@ -25,7 +25,7 @@ final class AccountFacadeUsecasesImpl implements IAccountFacadeUseCases {
        _deleteAccountUseCase = deleteAccountUseCase;
 
   @override
-  Future<ListAccountResult> getAllAccounts(AccountUserParams params) {
+  Future<ListAccountResult> getAllAccounts(NoParams params) {
     return _getAllAccountsUseCase(params);
   }
 

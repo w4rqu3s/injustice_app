@@ -23,7 +23,7 @@ class _AccountsViewState extends State<AccountsView> {
     super.initState();
     _viewModel = injector.get<AccountViewModel>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _viewModel.commands.getAllAccounts('1');
+      _viewModel.commands.getAllAccounts();
     });
   }
 

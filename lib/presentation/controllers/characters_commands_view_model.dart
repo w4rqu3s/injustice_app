@@ -82,8 +82,10 @@ class CharactersCommandsViewModel {
         state.clearMessage(); // Limpa mensagens anteriores
         state.state.value = characters;
       },
-      onFailure: (err) =>
-          state.setMessage(err.msg), // registra o erro no estado
+      onFailure: (err) {
+          state.setMessage(err.msg); // registra o erro no estado
+          state.state.value = [];
+      }
     );
   }
 
@@ -148,6 +150,7 @@ class CharactersCommandsViewModel {
   /// buscca personagens e atualiza o estado
   Future<void> fetchCharacters(String accountId) async {
     state.clearMessage(); // Limpa mensagens anteriores
+    state.state.value = [];
     await _getAllCharactersCommand.executeWith((accountId: accountId));
   }
 

@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (auth == null) {
                               _showSnack('Falha ao autenticar usuário.');
                             } else {
-                              context.goNamed(GlobalPaths.underConstruction);
+                              context.goNamed(GlobalRouteNames.underConstruction);
                             }
                           } catch (e) {
                             _showSnack('Erro ao fazer login: $e');

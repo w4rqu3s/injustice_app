@@ -81,8 +81,11 @@ class AccountCommandsViewmodel {
         state.clearMessage(); // Limpa mensagens anteriores
         state.state.value = accounts;
       },
-      onFailure: (err) =>
-          state.setMessage(err.msg), // registra o erro no estado
+      onFailure: (err) {
+          state.setMessage(err.msg);  // registra o erro no estado
+          state.state.value = [];
+       } 
+          
     );
   }
 
@@ -144,9 +147,10 @@ class AccountCommandsViewmodel {
   //   MÉTODOS PÚBLICOS (CHAMADOS PELOS WIDGETS)
   //   que disparam os commands
   // ========================================================
-  Future<void> getAllAccounts(String userId) async {
+  Future<void> getAllAccounts() async {
     state.clearMessage(); // Limpa mensagens anteriores
-    await _getAllAccountsCommand.executeWith((userId: userId));
+    state.state.value = [];
+    await _getAllAccountsCommand.executeWith(());
   }
 
   Future<void> deleteAccount(String id) async {

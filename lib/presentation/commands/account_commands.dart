@@ -36,17 +36,14 @@ final class UpdateAccountCommand
 }
 
 final class GetAllAccountsCommand
-    extends ParameterizedCommand<List<Account>, Failure, AccountUserParams> {
+    extends ParameterizedCommand<List<Account>, Failure, NoParams> {
   final IAccountFacadeUseCases _accountFacadeUseCases;
 
   GetAllAccountsCommand(this._accountFacadeUseCases);
 
   @override
   Future<ListAccountResult> execute() async {
-    if (parameter == null) {
-      return Error(InputFailure('Parametro nulo para buscar todas as contas.'));
-    }
-    return await _accountFacadeUseCases.getAllAccounts((parameter!));
+    return await _accountFacadeUseCases.getAllAccounts(());
   }
 }
 

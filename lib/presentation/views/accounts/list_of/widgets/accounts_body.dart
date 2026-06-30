@@ -29,7 +29,7 @@ class AccountsBody extends StatelessWidget {
 
       return RefreshIndicator(
         onRefresh: () async {
-          await viewModel.commands.getAllAccounts('1');
+          await viewModel.commands.getAllAccounts();
         },
         child: CustomScrollView(
           slivers: [
