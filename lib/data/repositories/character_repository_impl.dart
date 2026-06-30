@@ -40,4 +40,10 @@ final class CharacterRepositoryImpl implements ICharacterRepository {
   Stream<List<Character>> watchCharacters(String accountId) {
     return _remoteStorage.watchCharacters(accountId);
   }
+
+  @override
+  Future<VoidResult> deleteAllCharacters(String accountId) {
+    return _remoteStorage.deleteAllCharacters(accountId);
+  }
+
 }

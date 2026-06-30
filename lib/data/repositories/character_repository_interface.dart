@@ -8,4 +8,5 @@ abstract interface class ICharacterRepository {
   Future<CharacterResult> deleteCharacter(String id);
   Future<CharacterResult> editCharacter(Character character);
   Stream<List<Character>> watchCharacters(String accountId);
+  Future<VoidResult> deleteAllCharacters(String accountId);
 }

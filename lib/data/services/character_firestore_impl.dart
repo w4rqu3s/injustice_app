@@ -136,4 +136,25 @@ final class CharacterFirestoreService implements ICharacterRemoteStorage {
       },
     );
   }
+
+  @override
+  Future<VoidResult> deleteAllCharacters(String accountId) async {
+    try {
+      final snapshot = await _collection
+          .where('accountId', isEqualTo: accountId)
+          .get();
+
+      final batch = _firestore.batch();
+
+      for (final doc in snapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      await batch.commit();
+
+      return const Success(null);
+    } catch (e) {
+      return Error(ApiLocalFailure('Firestore - Erro ao deletar todos os personagens: $e'));
+    }
+  }
 }
