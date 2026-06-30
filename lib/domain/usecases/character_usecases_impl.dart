@@ -1,3 +1,5 @@
+import 'package:injustice_app/domain/models/character_entity.dart';
+
 import '../../core/typedefs/types_defs.dart';
 import '../../data/repositories/character_repository_interface.dart';
 import 'character_usecases_interfaces.dart';
@@ -68,4 +70,18 @@ final class EditCharacterUseCaseImpl implements IEditCharacterUseCase {
   Future<CharacterResult> call(CharacterParams params) {
     return _repository.editCharacter(params.character);
   }
+  
+}
+
+final class WatchCharactersUseCase implements IWatchCharactersUseCase {
+  final ICharacterRepository _repository;
+
+  WatchCharactersUseCase({required ICharacterRepository repository})
+    : _repository = repository;
+
+  @override
+  Stream<List<Character>> call(CharacterAccountParams params) {
+    return _repository.watchCharacters(params.accountId);
+  }
+  
 }

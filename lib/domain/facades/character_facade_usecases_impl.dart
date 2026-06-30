@@ -1,3 +1,5 @@
+import 'package:injustice_app/domain/models/character_entity.dart';
+
 import '../../core/typedefs/types_defs.dart';
 import '../usecases/character_usecases_interfaces.dart';
 import 'character_facade_usecases_interface.dart';
@@ -11,6 +13,7 @@ final class CharacterFacadeUseCasesImpl implements ICharacterFacadeUseCases {
   final ISaveCharacterUseCase _saveCharacterUseCase;
   final IDeleteCharacterUseCase _deleteCharacterUseCase;
   final IEditCharacterUseCase _editCharacterUseCase;
+  final IWatchCharactersUseCase _watchCharactersUseCase;
 
   CharacterFacadeUseCasesImpl({
     required IGetAllCharactersUseCase getAllCharactersUseCase,
@@ -18,10 +21,12 @@ final class CharacterFacadeUseCasesImpl implements ICharacterFacadeUseCases {
     required ISaveCharacterUseCase saveCharacterUseCase,
     required IDeleteCharacterUseCase deleteCharacterUseCase,
     required IEditCharacterUseCase editCharacterUseCase,
-  }) : _getAllCharactersUseCase = getAllCharactersUseCase,
+    required IWatchCharactersUseCase watchCharactersUseCase,
+  }) : _watchCharactersUseCase = watchCharactersUseCase,
        _getCharacterByIdUseCase = getCharacterByIdUseCase,
        _saveCharacterUseCase = saveCharacterUseCase,
        _deleteCharacterUseCase = deleteCharacterUseCase,
+       _getAllCharactersUseCase = getAllCharactersUseCase,
        _editCharacterUseCase = editCharacterUseCase;
 
   @override
@@ -43,9 +48,14 @@ final class CharacterFacadeUseCasesImpl implements ICharacterFacadeUseCases {
   Future<CharacterResult> deleteCharacter(CharacterIdParams params) {
     return _deleteCharacterUseCase(params);
   }
-  
+
   @override
   Future<CharacterResult> editCharacter(CharacterParams params) {
     return _editCharacterUseCase(params);
+  }
+
+  @override
+  Stream<List<Character>> watchCharacters(CharacterAccountParams params) {
+    return _watchCharactersUseCase(params);
   }
 }

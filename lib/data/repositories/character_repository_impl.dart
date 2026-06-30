@@ -35,4 +35,9 @@ final class CharacterRepositoryImpl implements ICharacterRepository {
   Future<CharacterResult> editCharacter(Character character) {
     return _remoteStorage.editCharacter(character);
   }
+
+  @override
+  Stream<List<Character>> watchCharacters(String accountId) {
+    return _remoteStorage.watchCharacters(accountId);
+  }
 }

@@ -7,4 +7,5 @@ abstract interface class ICharacterRemoteStorage {
   Future<CharacterResult> getCharacterById(String id);
   Future<CharacterResult> deleteCharacter(String id);
   Future<CharacterResult> editCharacter (Character character);
+  Stream<List<Character>> watchCharacters(String accountId);
 }

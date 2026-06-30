@@ -7,4 +7,5 @@ abstract interface class ICharacterRepository {
   Future<CharacterResult> saveCharacter(Character character);
   Future<CharacterResult> deleteCharacter(String id);
   Future<CharacterResult> editCharacter(Character character);
+  Stream<List<Character>> watchCharacters(String accountId);
 }

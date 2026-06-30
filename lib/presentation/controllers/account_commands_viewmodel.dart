@@ -73,7 +73,6 @@ class AccountCommandsViewmodel {
   //   OBSERVERS ESPECÍFICOS
   // ========================================================
 
-  /// Buscar todos os personagens
   void _observeGetAllAccounts() {
     _observeCommand<List<Account>>(
       _getAllAccountsCommand,
@@ -89,7 +88,6 @@ class AccountCommandsViewmodel {
     );
   }
 
-  /// Criar um novo personagem
   void _observeSaveAccount() {
     _observeCommand<Account>(
       _saveAccountCommand,
@@ -106,7 +104,6 @@ class AccountCommandsViewmodel {
     );
   }
 
-  /// Deletar um personagem
   void _observeDeleteAccount() {
     _observeCommand<Account>(
       _deleteAccountCommand,

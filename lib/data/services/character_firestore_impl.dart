@@ -21,8 +21,9 @@ final class CharacterFirestoreService implements ICharacterRemoteStorage {
   Future<ListCharacterResult> getAllCharacters(String accountId) async {
     try {
       // Busca todos os documentos da coleção
-      final querySnapshot = await _collection.
-        where('accountId', isEqualTo: accountId).get();
+      final querySnapshot = await _collection
+          .where('accountId', isEqualTo: accountId)
+          .get();
 
       if (querySnapshot.docs.isEmpty) {
         return Error(EmptyResultFailure());
@@ -55,7 +56,9 @@ final class CharacterFirestoreService implements ICharacterRemoteStorage {
       final character = CharacterMapper.fromMap(docSnapshot.data()!);
       return Success(character);
     } catch (e) {
-      return Error(ApiLocalFailure('Firestore - Erro ao buscar personagem: $e'));
+      return Error(
+        ApiLocalFailure('Firestore - Erro ao buscar personagem: $e'),
+      );
     }
   }
 
@@ -88,13 +91,15 @@ final class CharacterFirestoreService implements ICharacterRemoteStorage {
       }
 
       final characterMap = CharacterMapper.toMap(character);
-      
+
       // Atualiza o documento no Firestore
       await docRef.update(characterMap);
 
       return Success(character);
     } catch (e) {
-      return Error(ApiLocalFailure('Firestore - Erro ao editar personagem: $e'));
+      return Error(
+        ApiLocalFailure('Firestore - Erro ao editar personagem: $e'),
+      );
     }
   }
 
@@ -115,7 +120,20 @@ final class CharacterFirestoreService implements ICharacterRemoteStorage {
 
       return Success(character);
     } catch (e) {
-      return Error(ApiLocalFailure('Firestore - Erro ao deletar personagem: $e'));
+      return Error(
+        ApiLocalFailure('Firestore - Erro ao deletar personagem: $e'),
+      );
     }
+  }
+
+  @override
+  Stream<List<Character>> watchCharacters(String accountId) {
+    return _collection.where('accountId', isEqualTo: accountId).snapshots().map(
+      (snapshot) {
+        return snapshot.docs
+            .map((doc) => CharacterMapper.fromMap(doc.data()))
+            .toList();
+      },
+    );
   }
 }

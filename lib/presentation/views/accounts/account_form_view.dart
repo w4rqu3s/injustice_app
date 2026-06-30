@@ -131,24 +131,6 @@ class _AccountFormViewState extends State<AccountFormView> {
 
               const SizedBox(height: AppSpacing.md),
 
-              InputTextField(
-                label: 'E-mail',
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: Icons.email,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Informe um e-mail';
-                  }
-
-                  if (!value.contains('@')) {
-                    return 'E-mail inválido';
-                  }
-
-                  return null;
-                },
-              ),
-
               const SizedBox(height: AppSpacing.md),
 
               InputTextField(
